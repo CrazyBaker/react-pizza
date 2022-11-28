@@ -1,4 +1,8 @@
+import { useState } from 'react';
+
 function Sort() {
+  const [isVisiblePopup, setIsVisiblePopup] = useState(false);
+
   return (
     <div className="sort">
       <div className="sort__label">
