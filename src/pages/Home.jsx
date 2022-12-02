@@ -6,19 +6,22 @@ import Skeleton from '../components/pizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import { SearchContext } from '../App';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryId } from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
 import axios from 'axios';
 
 const Home = () => {
-  const { categoryId, sort } = useSelector((state) => state.filter);
+  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
   const dispatch = useDispatch();
   const { searchValue } = useContext(SearchContext);
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
 
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
+  };
+
+  const onChangePage = (number) => {
+    dispatch(setCurrentPage(number));
   };
 
   useEffect(() => {
@@ -27,7 +30,7 @@ const Home = () => {
     const category = categoryId > 0 ? `category=${categoryId}` : '';
     const order = sort.sortProperty.includes('-') ? 'ask' : 'desc';
     const sortBy = sort.sortProperty.replace('-', '');
-    const search = searchValue ? `&search=${searchValue}` : '';
+    const search = searchValue ? `&search=${currentPage}` : '';
 
     axios
       .get(
@@ -51,7 +54,7 @@ const Home = () => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : items}</div>
-      <Pagination onChangePage={(number) => setCurrentPage(number)} />
+      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
 };
