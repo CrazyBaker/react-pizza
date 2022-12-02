@@ -1,18 +1,24 @@
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSort } from '../redux/slices/filterSlice';
 
-function Sort({ value, onChangeSort }) {
+const list = [
+  { name: 'популярности(Desc)', sortProperty: 'rating' },
+  { name: 'популярности(Ask)', sortProperty: '-rating' },
+  { name: 'цене(Desk)', sortProperty: 'price' },
+  { name: 'цене(Ask)', sortProperty: '-price' },
+  { name: 'алфавиту(Desk)', sortProperty: 'title' },
+  { name: 'алфавиту(Ask)', sortProperty: '-title' },
+];
+
+function Sort() {
+  const dispatch = useDispatch();
+  const sort = useSelector((state) => state.filter.sort);
+
   const [isVisible, setIsVisible] = useState(false);
-  const list = [
-    { name: 'популярности(Desc)', sortProperty: 'rating' },
-    { name: 'популярности(Ask)', sortProperty: '-rating' },
-    { name: 'цене(Desk)', sortProperty: 'price' },
-    { name: 'цене(Ask)', sortProperty: '-price' },
-    { name: 'алфавиту(Desk)', sortProperty: 'title' },
-    { name: 'алфавиту(Ask)', sortProperty: '-title' },
-  ];
 
   const onClickListItem = (index) => {
-    onChangeSort(index);
+    dispatch(setSort(index));
     setIsVisible(false);
   };
 
@@ -37,7 +43,7 @@ function Sort({ value, onChangeSort }) {
             setIsVisible(!isVisible);
           }}
         >
-          {value.name}
+          {sort.name}
         </span>
       </div>
       {isVisible && (
@@ -48,7 +54,7 @@ function Sort({ value, onChangeSort }) {
                 <li
                   key={index}
                   onClick={() => onClickListItem(obj)}
-                  className={value.sortProperty === obj.sortProperty ? 'active' : ''}
+                  className={sort.sortProperty === obj.sortProperty ? 'active' : ''}
                 >
                   {obj.name}
                 </li>
