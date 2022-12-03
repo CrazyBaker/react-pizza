@@ -65,16 +65,6 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-
-    if (!isSearch.current) {
-      fetchPizzas();
-    }
-
-    isSearch.current = false;
-  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
-
-  useEffect(() => {
     if (isMounted.current) {
       const queryString = qs.stringify({
         sortProperty: sort.sortProperty,
@@ -85,6 +75,16 @@ const Home = () => {
       navigate(`?${queryString}`);
     }
     isMounted.current = true;
+  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    if (!isSearch.current) {
+      fetchPizzas();
+    }
+
+    isSearch.current = false;
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
   const items = pizzas.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />);
