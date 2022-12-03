@@ -27,7 +27,6 @@ function Sort() {
     const handleCklickOutside = (event) => {
       if (!event.path.includes(sortRef.current)) {
         setIsVisible(false);
-        console.log('event');
       }
     };
 
