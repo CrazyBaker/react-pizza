@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { act } from 'react-dom/test-utils';
-
+//TODO: fix search
 const initialState = {
   categoryId: 0,
   currentPage: 1,
@@ -30,6 +30,9 @@ export const filterSlice = createSlice({
     },
   },
 });
+
+export const selectSort = (state) => state.filter.sort;
+export const selectFilter = (state) => state.filter;
 
 export const { setCategoryId, setSort, setCurrentPage, setFilters } = filterSlice.actions;
 
