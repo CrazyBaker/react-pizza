@@ -84,6 +84,7 @@ const Home = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
+    console.log(`isSearch ${!isSearch.current}`);
     if (!isSearch.current) {
       getPizzas();
     }
