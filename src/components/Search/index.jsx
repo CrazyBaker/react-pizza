@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useCallback, useState } from 'react';
 import styles from './Search.module.scss';
 import { SearchContext } from '../../App';
-import { debounce, lodash } from 'lodash';
+import { debounce } from 'lodash';
 
 export default function Search() {
   const [value, setValue] = useState('');

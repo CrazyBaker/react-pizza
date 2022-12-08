@@ -1,19 +1,16 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState, createContext, useEffect } from 'react';
+import { useState, createContext } from 'react';
 import './scss/app.scss';
 import Header from './components/Header';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Cart from './pages/Cart';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const SearchContext = createContext();
 
 function App() {
   const [searchValue, setSearchValue] = useState('');
-
-  // useEffect(() => {
-  //   fetch('https://6385c9b7875ca3273d457334.mockapi.io/').then((res) => console.log(res));
-  // }, []);
 
   return (
     <div className="wrapper">
